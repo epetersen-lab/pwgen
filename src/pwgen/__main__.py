@@ -25,7 +25,9 @@ def main():
 
     parser = argparse.ArgumentParser(
         prog="pwgen",
-        description="Utility for creating passwords with certain complexity. Defaults will create a password of length 12 picked from the 'printable' alphabet",
+        description="Utility for creating passwords with certain complexity. \
+        Defaults will create a password of length 12 picked from the \
+        'printable' alphabet",
     )
 
     parser.add_argument(
@@ -71,7 +73,8 @@ def main():
         "--hexdigits",
         type=int,
         metavar="N",
-        help="pick N number of characters from the 'hexadecimal digits' alphabet",
+        help="pick N number of characters from the 'hexadecimal digits'\
+        alphabet",
     )
     parser.add_argument(
         "-p",
