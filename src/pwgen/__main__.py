@@ -22,6 +22,7 @@ def main():
     num_of_upper = 0
     num_of_special = 0
     num_of_printable = 0
+    num_of_passwords = 1
 
     parser = argparse.ArgumentParser(
         prog="pwgen",
@@ -32,6 +33,13 @@ def main():
 
     parser.add_argument(
         "-a", "--alphabets", action="store_true", help="display build-in alphabets"
+    )
+    parser.add_argument(
+        "-n",
+        "--number",
+        type=int,
+        metavar="N",
+        help="number of passwords to produce. Default is one,",
     )
     parser.add_argument(
         "-b",
@@ -122,17 +130,20 @@ def main():
     if password_length == 0:
         num_of_printable = DEFAULT_PASSWORD_LENGTH
 
-    passwd = pwgen.generate(
-        brackets=num_of_brackets,
-        digits=num_of_digits,
-        hexdigits=num_of_hexdigits,
-        lower_case=num_of_lower,
-        upper_case=num_of_upper,
-        printable=num_of_printable,
-        specials=num_of_special,
-    )
+    if args.number is not None:
+        num_of_passwords = args.number
 
-    print(passwd)
+    for _ in range(0, num_of_passwords):
+        passwd = pwgen.generate(
+            brackets=num_of_brackets,
+            digits=num_of_digits,
+            hexdigits=num_of_hexdigits,
+            lower_case=num_of_lower,
+            upper_case=num_of_upper,
+            printable=num_of_printable,
+            specials=num_of_special,
+        )
+        print(passwd)
 
 
 if __name__ == "__main__":
