@@ -26,6 +26,8 @@ def generate(
     printable=0,
     spaces=0,
     specials=0,
+    custom=0,
+    custom_alphabet="",
 ) -> str:
     password = ""
     if brackets:
@@ -44,5 +46,7 @@ def generate(
         password += pick_from_alphabet(alphabets.SPACE, spaces)
     if specials:
         password += pick_from_alphabet(alphabets.SPECIALS, specials)
+    if custom:
+        password += pick_from_alphabet(custom_alphabet, custom)
 
     return reorder(password)

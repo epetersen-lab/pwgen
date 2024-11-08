@@ -16,6 +16,7 @@ def main():
     DEFAULT_PASSWORD_LENGTH = 12
 
     num_of_brackets = 0
+    num_of_custom = 0
     num_of_digits = 0
     num_of_hexdigits = 0
     num_of_lower = 0
@@ -23,6 +24,7 @@ def main():
     num_of_special = 0
     num_of_printable = 0
     num_of_passwords = 1
+    custom_alphabet = ""
 
     parser = argparse.ArgumentParser(
         prog="pwgen",
@@ -40,6 +42,13 @@ def main():
         type=int,
         metavar="N",
         help="number of passwords to produce. Default is one,",
+    )
+    parser.add_argument(
+        "-c",
+        "--custom",
+        nargs=2,
+        metavar=("N", "ALPHABET"),
+        help="pick N number of characters from this specified ALPHABET",
     )
     parser.add_argument(
         "-b",
@@ -127,11 +136,16 @@ def main():
         num_of_printable = args.printable
         password_length += num_of_printable
 
-    if password_length == 0:
-        num_of_printable = DEFAULT_PASSWORD_LENGTH
-
     if args.number is not None:
         num_of_passwords = args.number
+
+    if args.custom is not None:
+        num_of_custom, custom_alphabet = args.custom
+        num_of_custom = int(num_of_custom)
+        password_length += num_of_custom
+
+    if password_length == 0:
+        num_of_printable = DEFAULT_PASSWORD_LENGTH
 
     for _ in range(0, num_of_passwords):
         passwd = pwgen.generate(
@@ -142,6 +156,8 @@ def main():
             upper_case=num_of_upper,
             printable=num_of_printable,
             specials=num_of_special,
+            custom=num_of_custom,
+            custom_alphabet=custom_alphabet,
         )
         print(passwd)
 
