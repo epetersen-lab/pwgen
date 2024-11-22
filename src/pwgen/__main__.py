@@ -25,6 +25,7 @@ def main():
     num_of_printable = 0
     num_of_passwords = 1
     custom_alphabet = ""
+    exclude = ""
 
     parser = argparse.ArgumentParser(
         prog="pwgen",
@@ -63,6 +64,12 @@ def main():
         type=int,
         metavar="N",
         help="pick N number of characters from the 'digits' alphabet",
+    )
+    parser.add_argument(
+        "-e",
+        "--exclude",
+        type=str,
+        help="specify characters to exclude from passwords",
     )
     parser.add_argument(
         "-l",
@@ -144,6 +151,9 @@ def main():
         num_of_custom = int(num_of_custom)
         password_length += num_of_custom
 
+    if args.exclude is not None:
+        exclude = args.exclude
+
     if password_length == 0:
         num_of_printable = DEFAULT_PASSWORD_LENGTH
 
@@ -158,6 +168,7 @@ def main():
             specials=num_of_special,
             custom=num_of_custom,
             custom_alphabet=custom_alphabet,
+            exclude=exclude,
         )
         print(passwd)
 
