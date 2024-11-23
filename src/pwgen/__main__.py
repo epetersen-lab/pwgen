@@ -4,6 +4,7 @@ import argparse
 import sys
 
 import pwgen
+from .__init__ import __version__
 
 
 def display_alphabets():
@@ -106,6 +107,9 @@ def main():
         type=int,
         metavar="N",
         help="pick N number of characters from any of the alphabets",
+    )
+    parser.add_argument(
+        "--version", action="version", version="%(prog)s " + __version__
     )
     args = parser.parse_args()
 
